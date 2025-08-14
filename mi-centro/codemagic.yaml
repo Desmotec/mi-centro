@@ -1,0 +1,21 @@
+workflows:
+  expo-android:
+    name: Build Expo APK
+    environment:
+      vars:
+        NODE_ENV: "production"
+      node: latest
+      flutter: none
+    scripts:
+      - name: Instalar dependencias
+        script: |
+          npm install
+      - name: Prebuild
+        script: |
+          npx expo prebuild
+      - name: Build APK
+        script: |
+          cd android
+          ./gradlew assembleRelease
+    artifacts:
+      - android/app/build/outputs/apk/release/app-release.apk
